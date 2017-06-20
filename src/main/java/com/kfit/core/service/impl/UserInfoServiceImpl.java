@@ -1,11 +1,11 @@
 package com.kfit.core.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
+import com.kfit.core.bean.UserInfo;
 import com.kfit.core.repository.UserInfoRepository;
 import com.kfit.core.service.UserInfoService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService{

@@ -1,5 +1,8 @@
 package com.kfit.config.shiro;
 
+import com.kfit.core.bean.SysPermission;
+import com.kfit.core.bean.SysRole;
+import com.kfit.core.bean.UserInfo;
 import com.kfit.core.service.UserInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
