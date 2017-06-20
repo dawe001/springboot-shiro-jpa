@@ -1,0 +1,187 @@
+初次运行
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+
+$ mkdir learngit
+$ cd learngit
+$ pwd
+/Users/michael/learngi
+
+
+通过git init命令把这个目录变成Git可以管理的仓库：
+$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+如果你没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。
+.git目录里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD
+
+
+添加文件到Git仓库，分两步：
+
+第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+第二步，使用命令git commit，完成。 -m后面输入的是本次提交的说明，可以输入任意内容
+git status命令可以让我们时刻掌握仓库当前的状态
+
+Git status告诉我们readme.txt被修改了，如果能看看具体修改了什么内容，自然是很好的
+$ git diff readme.txt
+git diff顾名思义就是查看difference
+
+
+		###################
+		#
+		###版本回退
+		#
+		###################
+git log命令显示从最近到最远的提交日志,如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
+
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+在Git中，用HEAD表示当前版本,上一个版本就是HEAD^，上上一个版本就是HEAD^^，往上100个版本，写成HEAD~100
+$ cat readme.txt 查看文件
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+
+
+		###################
+		#
+		###管理修改
+		#
+		###################
+用 git 命令行提交文件时，默认使用 vim 编辑器，基本操作：
+vi
+按 a, i 或 o 进入编辑模式
+按 ESC 进入操作模式
+在操作模式下，:wq 为写入退出，:q! 不保存退出
+
+
+Git管理的是修改，当你用git add命令后，在工作区的第一次修改被放入暂存区，准备提交，但是，在工作区的第二次修改并没有放入暂存区，所以，git commit只负责把暂存区的修改提交了，也就是第一次的修改被提交了，第二次的修改不会被提交。
+用git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+
+
+
+
+
+		###################
+		#
+		###撤销修改（还原）
+		#
+		###################
+
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，
+第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+
+
+		###################
+		#
+		###删除文件
+		#
+		###################
+
+$ git rm test.txt
+一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
+$ git checkout -- test.txt
+
+		###################
+		#
+		###使用github
+		#
+		###################
+
+
+创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+$ ssh-keygen -t rsa -C "youremail@example.com"
+你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
+
+登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库
+根据GitHub的提示，在本地的learngit(自己init的目录名)仓库下运行命令：
+$ git remote add origin git@github.com:michaelliao/learngit.git
+请千万注意，把上面的michaelliao替换成你自己的GitHub账户名,learngit.git换成github仓库名
+git remote -v查看当前仓库  如果提示仓库已存在 git remote rm origin初始化仓库
+
+git add file.txt git commit -m
+
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+
+		###################
+		#
+		###创建合并删除分支
+		#
+		###################
+
+查看分支：git branch -r为查看全部
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+
+合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：
+$ git merge --no-ff -m "merge with no-ff" dev
+Merge made by the 'recursive' strategy.
+readme.txt |    1 +
+1 file changed, 1 insertion(+)
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+
+删除分支：git branch -d <name>
+开发一个新feature，最好新建一个分支；
+丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+
+
+
+master分支和feature1分支各自都分别有新的提交，这种情况下，
+Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突，
+Git告诉我们，readme.txt文件存在冲突，必须手动解决冲突后再提交(解决后必须再次add和commit)
+$ git log --graph --pretty=oneline --abbrev-commit命令可以看到分支合并图
+
+
+
+		###################
+		#
+		###bug分支
+		#
+		###################
+
+
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+
+当dev工作没有完成时，先把工作现场git stash一下，然后去创建bug分支修复bug，
+修复后到master将bug分支合并到master，再回到dev用git stash list命令看所有的stash
+用$ git stash pop或者$ git stash apply stash@{0}恢复，回到工作现场(有问题可以还原或将master合并到dev)
+
+用git stash apply恢复，恢复后，stash内容并不删除，需要用git stash drop来删除；
+另一种方式是用git stash pop，恢复的同时把stash内容也删了
+
+
+
+		###################
+		#
+		###多人远程协作
+		#
+		###################
+
+多人协作的工作模式通常是这样：
+
+查看远程库信息，使用git remote -v；(默认origin)
+关联远程库，在本地的learngit(自己的目录名)仓库下运行git remote add origin git@server-name:path/repo-name.git；
+在本地创建和远程仓库对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，
+用命令git branch --set-upstream branch-name origin/branch-name。
