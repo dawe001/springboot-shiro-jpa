@@ -1,7 +1,7 @@
 package com.kfit;
 
 import com.kfit.core.bean.Employee;
-import com.kfit.core.repository.UserInfoRepository;
+import com.kfit.core.repository.EmployeeDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 
 
@@ -20,19 +22,21 @@ import javax.persistence.criteria.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(App.class)
 public class SpringShiroTest {
+    @PersistenceContext
+    private EntityManager entityManager;
     @Autowired
-    private UserInfoRepository userInfoRepository;
+    private EmployeeDao employeeDao;
 
     @Test
     public void test() throws Exception {
-        userInfoRepository.findAll(new Specification<Employee>() {
+        employeeDao.findAll(new Specification<Employee>() {
             @Override
             public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
-                Path<Long> id=root.get("id");
-                Path<String> name=root.get("name");
-                root.join("department",JoinType.LEFT);
-                Predicate p1=cb.and(cb.le(id,10));
-                p1=cb.and(p1,cb.like(name,"%"+"a"+"%"));
+                Path<Long> id = root.get("id");
+                Path<String> name = root.get("name");
+                root.join("department", JoinType.LEFT);
+                Predicate p1 = cb.and(cb.le(id, 10));
+                p1 = cb.and(p1, cb.like(name, "%" + "a" + "%"));
                 return null;
             }
         }, new PageRequest(0, 3, new Sort(Sort.Direction.DESC, "id")));

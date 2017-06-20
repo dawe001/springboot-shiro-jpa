@@ -16,5 +16,5 @@ public interface UserInfoRepository extends CrudRepository<UserInfo,Long>{
 	
 	/**通过username查找用户信息;*/
 	UserInfo findByUsername(String username);
-	Page<Employee> findAll(Specification<Employee> specification, Pageable pageable);
+
 }
