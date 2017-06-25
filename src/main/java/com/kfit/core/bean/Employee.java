@@ -11,8 +11,11 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+//    @NotNull//等效nullable=false columnDefine=varchar not null
     private String name;
+    //    @Transient//暂态属性，不出现在表中
     private Double salary;
+    //    @Formula("select sum(id) from employee")//派生属性，不出现在表中
     private String deg;
 
 

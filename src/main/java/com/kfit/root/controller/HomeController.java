@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
 public class HomeController {
 
-    @Resource(name = "aaa")
+//    @Resource(name = "aaa")
     private MyShiroRealm myShiroRealm;
 
     @RequestMapping({"/"})
