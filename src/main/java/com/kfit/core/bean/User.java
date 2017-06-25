@@ -2,6 +2,7 @@ package com.kfit.core.bean;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * Created by davi on 2017/6/25.
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class User {
 
     @Id
+    @Column(precision = 10, scale = 3)
     @GeneratedValue()
     private Long id;
 
@@ -24,7 +26,12 @@ public class User {
     @NotNull
     @Column(columnDefinition = "varchar(20)")
     @Enumerated(EnumType.STRING)
-    private ActionType actionType ;
+    private ActionType actionType;
+
+    @Column(columnDefinition = "bit(1) default 1")
+    private Boolean verify;
+
+    private BigDecimal num;
 
     public Long getId() {
         return id;
