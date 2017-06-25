@@ -18,7 +18,6 @@ public class Address {
 //
 //    @Column(nullable = false)
 //    private String city;
-    private City city1;
 
     @AttributeOverrides({@AttributeOverride(name = "name", column = @Column(name = "city", nullable = false,insertable = false))
     })

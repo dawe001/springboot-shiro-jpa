@@ -16,11 +16,11 @@ public class User {
 
     private Address homeAddress;
 
- //   @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street"))
-//            , @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zipCode", length = 5))
-//            , @AttributeOverride(name = "city", column = @Column(name = "billing_city",insertable=false ,updatable=false))
-//})
-//    private Address billAddress;
+    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street"))
+            , @AttributeOverride(name = "city.zipCode", column = @Column(name = "billing_zipCode", length = 5))
+            , @AttributeOverride(name = "city.name", column = @Column(name = "billing_city",insertable=false ,updatable=false))
+})
+    private Address billAddress;
 
     public Long getId() {
         return id;
