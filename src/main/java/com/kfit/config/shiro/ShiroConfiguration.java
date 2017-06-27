@@ -9,7 +9,9 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -24,9 +26,10 @@ import java.util.Map;
  * @author Angel(QQ:412887952)
  * @version v.0.1
  */
-//@Configuration
+@Configuration
 public class ShiroConfiguration {
-
+    @Value(value = "${server.context-path}")
+    String context;
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
@@ -46,6 +49,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/logout", "logout");
         // 配置记住我或认证通过可以访问的地址
         filterChainDefinitionMap.put("/index", "user");
+        filterChainDefinitionMap.put("/index1", "user");
         filterChainDefinitionMap.put("/**", "authc");
 
         // <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->
@@ -81,8 +85,7 @@ public class ShiroConfiguration {
      *
      * @return
      */
-    @Bean(name = "aaa")
-
+    @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
         myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
