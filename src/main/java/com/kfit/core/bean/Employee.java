@@ -12,12 +12,13 @@ import javax.persistence.Id;
 
 @Entity
 public class Employee {
-    //    @Id
-//    @TableGenerator(name = "emp_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 100)
-//    @GeneratedValue(generator = "emp_gen",strategy = GenerationType.TABLE)
+//    @Id
+//    @TableGenerator(name = "emp_gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 100)
+//    @GeneratedValue(generator = "emp_gen", strategy = GenerationType.TABLE)
     @Id
     @GeneratedValue(generator = "ID1_GENERATOR")
     @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid",parameters = {})
+
     private String id;
     //    @NotNull//等效nullable=false columnDefine=varchar not null
     private String name;

@@ -8,11 +8,11 @@ import javax.persistence.*;
 
 @Entity
 public class Department {
-    @Id
-    @TableGenerator(name = "dep_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 2,pkColumnValue = "dep_r")
-    @GeneratedValue(generator = "dep_gen",strategy = GenerationType.TABLE)
 //    @Id
-//    @GeneratedValue(generator = "ID_GENERATOR")
+//    @TableGenerator(name = "dep_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 2,pkColumnValue = "dep_r")
+//    @GeneratedValue(generator = "dep_gen",strategy = GenerationType.TABLE)
+    @Id
+    @GeneratedValue(generator = "ID_GENERATOR")
     private Long id;
     private String name;
 //        @OneToMany(mappedBy = "department")
