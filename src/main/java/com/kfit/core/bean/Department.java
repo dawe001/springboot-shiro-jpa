@@ -4,20 +4,16 @@ package com.kfit.core.bean;
  * Created by davi on 2017/6/16.
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
-//    @OneToMany(mappedBy = "department")
-//    @OneToMany
-//    @JoinTable(name = "dep_em",joinColumns ={@JoinColumn(name = "id")},inverseJoinColumns = {@JoinColumn(name = "sid")})
+//        @OneToMany(mappedBy = "department")
 //    @JoinColumn(name = "dep_id")
 
 //    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -28,8 +24,15 @@ public class Department {
 //            uniqueConstraints = {@UniqueConstraint(columnNames={"id", "objectproxy_id"})}
 //    )
 //    @JoinTable(name = "em_dep",joinColumns = {@JoinColumn(name = "em_id")}, inverseJoinColumns = {@JoinColumn(name = "dep_id")})
-//    private List<Employee> employees;
 
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "dep_em",joinColumns ={@JoinColumn(name = "id")},inverseJoinColumns = {@JoinColumn(name = "sid")})
+    private List<Employee> employees;
+
+    @Transient
+    public String getSname() {
+        return employees.toString();
+    }
 
     //    @OneToOne(mappedBy = "department")
 //    @JoinColumn(name = "employee_id")

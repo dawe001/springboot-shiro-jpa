@@ -50,6 +50,7 @@ public class ShiroConfiguration {
         // 配置记住我或认证通过可以访问的地址
         filterChainDefinitionMap.put("/index", "user");
         filterChainDefinitionMap.put("/index1", "user");
+        filterChainDefinitionMap.put("/", "user");
         filterChainDefinitionMap.put("/**", "authc");
 
         // <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->

@@ -4,17 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-//@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 //@DiscriminatorColumn
 public class Staff implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
 //    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GenericGenerator(name = "sys-uuid",strategy = "uuid")
+//    @GeneratedValue(generator = "ID_GENERATOR")
+//    @GenericGenerator(name = "ID_GENERATOR",strategy = "enhanced-sequence")
     private int sid;
     @Column(columnDefinition = "varchar(128) not null")
     private String sname;
