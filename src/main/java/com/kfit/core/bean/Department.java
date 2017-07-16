@@ -5,13 +5,15 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @TableGenerator(name = "dep_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 2,pkColumnValue = "dep_r")
+    @GeneratedValue(generator = "dep_gen",strategy = GenerationType.TABLE)
+//    @Id
+//    @GeneratedValue(generator = "ID_GENERATOR")
+    private Long id;
     private String name;
 //        @OneToMany(mappedBy = "department")
 //    @JoinColumn(name = "dep_id")
@@ -27,23 +29,25 @@ public class Department {
 
 //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinTable(name = "dep_em",joinColumns ={@JoinColumn(name = "id")},inverseJoinColumns = {@JoinColumn(name = "sid")})
-    private List<Employee> employees;
+//    private List<Employee> employees;
 
-    @Transient
-    public String getSname() {
-        return employees.toString();
-    }
+//    @Transient
+//    public String getSname() {
+//        return employees.toString();
+//    }
 
     //    @OneToOne(mappedBy = "department")
 //    @JoinColumn(name = "employee_id")
 //    private Employee employee;
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
 //    public List<Employee> getList() {
 //        return list;

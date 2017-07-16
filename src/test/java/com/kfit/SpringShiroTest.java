@@ -1,6 +1,9 @@
 package com.kfit;
 
+import com.alibaba.fastjson.JSON;
+import com.kfit.core.bean.Department;
 import com.kfit.core.bean.Employee;
+import com.kfit.core.repository.DepartmentDao;
 import com.kfit.core.repository.EmployeeDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +31,8 @@ public class SpringShiroTest {
     private EntityManager entityManager;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @Test
     public void test() throws Exception {
@@ -38,22 +42,27 @@ public class SpringShiroTest {
                 Path<Long> id = root.get("id");
                 Path<String> name = root.get("name");
                 root.join("department", JoinType.LEFT);
-                Predicate p1 = cb.le(id, 10);
+                Predicate p1 = cb.equal(id, 10);
                 Predicate p2 = cb.like(name, "%" + "a" + "%");
-                cb.and(p1, p2);
-//                criteriaQuery.where(p1, p2);//和上面等效
+                criteriaQuery.multiselect(id, name);
+                criteriaQuery.where(p1, p2);
                 return null;
             }
         }, new PageRequest(0, 3, new Sort(Sort.Direction.DESC, "id")));
-        System.out.println(employeePage);
+        List<Employee> list = employeePage.getContent();
+        System.out.println(JSON.toJSONString(list));
 
     }
 
 
     @Test
     public void test1() throws Exception {
-        List<Employee> employeePage = employeeDao.queryByname("a");
-        Assert.isInstanceOf(employeePage.getClass(), List.class);
+        Employee employee = new Employee();
+        employee.setName("e1");
+        Department department = new Department();
+        department.setName("d1");
+        employeeDao.save(employee);
+        departmentDao.save(department);
     }
 
 //    @Test
