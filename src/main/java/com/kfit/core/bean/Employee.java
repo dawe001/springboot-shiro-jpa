@@ -4,22 +4,22 @@ package com.kfit.core.bean;
  * Created by davi on 2017/6/16.
  */
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Map;
+import java.util.Optional;
 
 @Entity
 public class Employee {
-//    @Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//        @Id
 //    @TableGenerator(name = "emp_gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 100)
 //    @GeneratedValue(generator = "emp_gen", strategy = GenerationType.TABLE)
-    @Id
-    @GeneratedValue(generator = "ID1_GENERATOR")
-    @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid",parameters = {})
+//    @Id
+//    @GeneratedValue(generator = "ID1_GENERATOR")
+//    @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid", parameters = {})
 
-    private String id;
+    private Long id;
     //    @NotNull//等效nullable=false columnDefine=varchar not null
     private String name;
     //    @Transient//暂态属性，不出现在表中
@@ -34,26 +34,52 @@ public class Employee {
 
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "dep_id")
+//    @JoinTable(name = "emp_dep",joinColumns = @JoinColumn(name = "emp_id"),inverseJoinColumns = @JoinColumn(name = "dep_id"))
+//    private Department department;
+
+//    @OneToOne(mappedBy = "employee")
 //    private Department department;
 
 //    @ManyToMany(mappedBy = "employees")
 //    private List<Department> departments;
 
+//@ElementCollection
+//@CollectionTable(name = "addr",joinColumns = @JoinColumn(name = "emp_id"))
+//private Set<City> addressCollection;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+//    @ElementCollection
+//    @CollectionTable(name = "addr",joinColumns = @JoinColumn(name = "emp_id"))
+//    @MapKeyColumn(name = "aaa")
+//    private Map<String,City> addressCollection;
+
+    @ElementCollection
+    @CollectionTable(name = "addr", joinColumns = @JoinColumn(name = "emp_id"))
+    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
+            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
+    private Map<FileName, City> addressCollection;
+
+
+    @ElementCollection
+    @CollectionTable(name = "addrsss", joinColumns = @JoinColumn(name = "emp_id"))
+    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
+            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
+    private Map<FileName, User> addressCollection1;
+
+//    public Collection<City> getAddressCollection() {
+//        return addressCollection;
+//    }
+//
+//    public void setAddressCollection(Collection<City> addressCollection) {
+//        this.addressCollection = addressCollection;
+//    }
 
     public Employee() {
         super();
     }
 
-    public String getName() {
-        return name;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     public void setName(String name) {
@@ -76,4 +102,19 @@ public class Employee {
         this.deg = deg;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return com.google.common.base.Objects.equal(id, employee.id) &&
+                com.google.common.base.Objects.equal(name, employee.name) &&
+                com.google.common.base.Objects.equal(salary, employee.salary) &&
+                com.google.common.base.Objects.equal(deg, employee.deg);
+    }
+
+    @Override
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(id, name, salary, deg);
+    }
 }

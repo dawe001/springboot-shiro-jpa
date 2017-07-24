@@ -18,7 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -57,11 +59,16 @@ public class SpringShiroTest {
 
     @Test
     public void test1() throws Exception {
-        Employee employee = new Employee();
-        employee.setName("e1");
+//        Employee employee = new Employee();
+//        employee.setName(null);
         Department department = new Department();
         department.setName("d1");
-        employeeDao.save(employee);
+        Map collection = new HashMap();
+        collection.put("ssssss1","png");
+        collection.put("ssssss2","png");
+//        department.setImageSet(collection);
+//        employeeDao.save(employee);
+//        System.out.println(employee.getName().get());
         departmentDao.save(department);
     }
 
@@ -74,6 +81,5 @@ public class SpringShiroTest {
 //        }
 //        Assert.isInstanceOf(employeePage.getClass(), List.class);
 //    }
-
 
 }

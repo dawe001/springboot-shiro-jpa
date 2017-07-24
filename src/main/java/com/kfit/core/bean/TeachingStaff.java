@@ -5,8 +5,10 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn
 //@DiscriminatorValue("a")
 public class TeachingStaff extends Staff
 {

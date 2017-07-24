@@ -5,8 +5,10 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn
 public class NonTeachingStaff extends Staff
 {
 

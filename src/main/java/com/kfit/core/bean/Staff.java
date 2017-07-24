@@ -4,16 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-//@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+//@Inheritance(strategy = InheritanceType.JOINED)//有staff的外键，没有name
+@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 //@DiscriminatorColumn
 public class Staff implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Id
-//    @GeneratedValue(generator = "ID_GENERATOR")
-//    @GenericGenerator(name = "ID_GENERATOR",strategy = "enhanced-sequence")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(generator = "ID_GENERATOR")
     private int sid;
     @Column(columnDefinition = "varchar(128) not null")
     private String sname;
