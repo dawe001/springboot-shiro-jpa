@@ -4,9 +4,7 @@ package com.kfit.core.bean;
  * Created by davi on 2017/6/16.
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Department {
@@ -54,9 +52,9 @@ public class Department {
 //        return employees.toString();
 //    }
 
-//        @OneToOne(optional = false)
+//    @OneToOne(optional = false)
 ////    @JoinColumn(name = "employee_id")
-//        @PrimaryKeyJoinColumn
+//    @PrimaryKeyJoinColumn
 //    private Employee employee;
 
 
@@ -68,6 +66,20 @@ public class Department {
 //    @JoinTable(name = "dep_emp",joinColumns = @JoinColumn(name = "dep_id"),inverseJoinColumns = @JoinColumn(name = "emp_id"))
 //    @MapKeyColumn(name = "cub")
 //    private Map<String, Employee> employeeMap;
+
+
+//    @OneToMany(mappedBy = "department")
+//    @MapKey(name = "name")
+//    private Map<Integer, Employee> employeeMap;
+
+
+//    public Map<Integer, Employee> getEmployeeMap() {
+//        return employeeMap;
+//    }
+//
+//    public void setEmployeeMap(Map<Integer, Employee> employeeMap) {
+//        this.employeeMap = employeeMap;
+//    }
 
     public Long getId() {
         return id;

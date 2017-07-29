@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +30,7 @@ import java.util.Map;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(App.class)
+@EnableTransactionManagement
 public class SpringShiroTest {
     @PersistenceContext
     private EntityManager entityManager;
@@ -64,22 +67,21 @@ public class SpringShiroTest {
         Department department = new Department();
         department.setName("d1");
         Map collection = new HashMap();
-        collection.put("ssssss1","png");
-        collection.put("ssssss2","png");
+        collection.put("ssssss1", "png");
+        collection.put("ssssss2", "png");
 //        department.setImageSet(collection);
 //        employeeDao.save(employee);
 //        System.out.println(employee.getName().get());
         departmentDao.save(department);
     }
 
-//    @Test
-//    public void test2() throws Exception {
-//        List<Map<String, Object>> employeePage = employeeDao.queryByname1("a");
-//        for (Map<String, Object> map : employeePage) {
-//            Map<String, Object> m = map;//此处会报错，jpa返回的是对象数组，不是map
-//            System.out.println(map);
-//        }
-//        Assert.isInstanceOf(employeePage.getClass(), List.class);
-//    }
+    @Test
+    @Transactional
+    public void test2() throws Exception {
+        Department department = departmentDao.findOne(1L);
+        System.out.println(JSON.toJSONString(department));
+    }
+
+
 
 }

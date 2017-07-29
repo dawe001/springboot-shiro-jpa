@@ -5,7 +5,6 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.*;
-import java.util.Map;
 import java.util.Optional;
 
 @Entity
@@ -19,7 +18,7 @@ public class Employee {
 //    @GeneratedValue(generator = "ID1_GENERATOR")
 //    @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid", parameters = {})
 
-    private Long id;
+        private Long id;
     //    @NotNull//等效nullable=false columnDefine=varchar not null
     private String name;
     //    @Transient//暂态属性，不出现在表中
@@ -33,7 +32,6 @@ public class Employee {
 //    private Employee parent;
 
 //    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "dep_id")
 //    @JoinTable(name = "emp_dep",joinColumns = @JoinColumn(name = "emp_id"),inverseJoinColumns = @JoinColumn(name = "dep_id"))
 //    private Department department;
 
@@ -53,18 +51,19 @@ public class Employee {
 //    @MapKeyColumn(name = "aaa")
 //    private Map<String,City> addressCollection;
 
-    @ElementCollection
-    @CollectionTable(name = "addr", joinColumns = @JoinColumn(name = "emp_id"))
-    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
-            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
-    private Map<FileName, City> addressCollection;
+//    @ElementCollection
+//    @CollectionTable(name = "addr", joinColumns = @JoinColumn(name = "emp_id"))
+//    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
+//            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
+//    private Map<FileName, City> addressCollection;
+//
+//
+//    @ElementCollection
+//    @CollectionTable(name = "addrsss", joinColumns = @JoinColumn(name = "emp_id"))
+//    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
+//            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
+//    private Map<FileName, User> addressCollection1;
 
-
-    @ElementCollection
-    @CollectionTable(name = "addrsss", joinColumns = @JoinColumn(name = "emp_id"))
-    @AttributeOverrides({@AttributeOverride(name = "key.fileName", column = @Column(name = "file_name", insertable = false, updatable = false)),
-            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
-    private Map<FileName, User> addressCollection1;
 
 //    public Collection<City> getAddressCollection() {
 //        return addressCollection;
@@ -107,14 +106,13 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return com.google.common.base.Objects.equal(id, employee.id) &&
-                com.google.common.base.Objects.equal(name, employee.name) &&
+        return com.google.common.base.Objects.equal(name, employee.name) &&
                 com.google.common.base.Objects.equal(salary, employee.salary) &&
                 com.google.common.base.Objects.equal(deg, employee.deg);
     }
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(id, name, salary, deg);
+        return com.google.common.base.Objects.hashCode( name, salary, deg);
     }
 }
