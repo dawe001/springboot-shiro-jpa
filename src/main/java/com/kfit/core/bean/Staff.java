@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)//有staff的外键，没有name
-@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+@Inheritance(strategy = InheritanceType.JOINED)//有staff的外键，没有name
+//@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 //@DiscriminatorColumn
 public class Staff implements Serializable {
 

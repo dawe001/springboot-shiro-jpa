@@ -4,12 +4,14 @@ package com.kfit.core.bean;
  * Created by davi on 2017/6/15.
  */
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn
+//@PrimaryKeyJoinColumn
 //@DiscriminatorValue("a")
+
 public class TeachingStaff extends Staff
 {
     private String qualification;
