@@ -18,11 +18,11 @@ public class User {
 
     private Address homeAddress;
 
-    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street"))
-            , @AttributeOverride(name = "city.zipCode", column = @Column(name = "billing_zipCode", length = 5))
-            , @AttributeOverride(name = "city.name", column = @Column(name = "billing_city", insertable = false, updatable = false))
-    })
-    private Address billAddress;
+//    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street"))
+//            , @AttributeOverride(name = "city.zipCode", column = @Column(name = "billing_zipCode", length = 5))
+//            , @AttributeOverride(name = "city.name", column = @Column(name = "billing_city", insertable = false, updatable = false))
+//    })
+//    private Address billAddress;
     @NotNull
     @Column(columnDefinition = "varchar(20)")
     @Enumerated(EnumType.STRING)

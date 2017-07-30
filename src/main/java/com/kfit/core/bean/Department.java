@@ -7,13 +7,22 @@ package com.kfit.core.bean;
 import javax.persistence.*;
 
 @Entity
+@IdClass(DeptId.class)
 public class Department {
     //    @Id
 //    @TableGenerator(name = "dep_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 2,pkColumnValue = "dep_r")
 //    @GeneratedValue(generator = "dep_gen",strategy = GenerationType.TABLE)
+//    @Id
+//    @GeneratedValue(generator = "ID_GENERATOR")
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
     @Id
-    @GeneratedValue(generator = "ID_GENERATOR")
-    private Long id;
+    private Long number;
+    @Id
+    private String country;
+
     private String name;
 //        @OneToMany(mappedBy = "department")
 //    @JoinColumn(name = "dep_id")
@@ -72,8 +81,19 @@ public class Department {
 //    @MapKey(name = "name")
 //    private Map<Integer, Employee> employeeMap;
 
+//    @AssociationOverrides({@AssociationOverride(name = "priPhone", joinColumns = @JoinColumn(name = "dep_phone")),
+//            @AssociationOverride(name = "phones", joinTable = @JoinTable(name = "dep_phones"))})
+//    private ContactInfo contactInfo;
 
-//    public Map<Integer, Employee> getEmployeeMap() {
+//    public ContactInfo getContactInfo() {
+//        return contactInfo;
+//    }
+//
+//    public void setContactInfo(ContactInfo contactInfo) {
+//        this.contactInfo = contactInfo;
+//    }
+
+    //    public Map<Integer, Employee> getEmployeeMap() {
 //        return employeeMap;
 //    }
 //
@@ -81,13 +101,13 @@ public class Department {
 //        this.employeeMap = employeeMap;
 //    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
 
 //    public List<Employee> getList() {

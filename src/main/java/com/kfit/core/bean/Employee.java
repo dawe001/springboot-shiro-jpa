@@ -5,10 +5,13 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Optional;
 
 @Entity
-public class Employee {
+//@IdClass(EmployeeId.class)
+@SecondaryTable(name = "emp_info",pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //        @Id
@@ -18,12 +21,23 @@ public class Employee {
 //    @GeneratedValue(generator = "ID1_GENERATOR")
 //    @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid", parameters = {})
 
-        private Long id;
+//    @Id
+    private Long id;
+//
+//    @Id
+//    @Column(name = "emp_id")
+//    private String country;
+
+//    @EmbeddedId
+//    private EmployeeId_ id;
+
+
     //    @NotNull//等效nullable=false columnDefine=varchar not null
     private String name;
     //    @Transient//暂态属性，不出现在表中
     private Double salary;
     //    @Formula("select sum(id) from employee")//派生属性，不出现在表中
+    @Column(table = "emp_info")
     private String deg;
 
 //    @JsonIgnore
@@ -64,13 +78,42 @@ public class Employee {
 //            @AttributeOverride(name = "key.extension", column = @Column(name = "ex_te", insertable = false, updatable = false))})
 //    private Map<FileName, User> addressCollection1;
 
+//    @Enumerated(value = EnumType.STRING)
+//    private Sex sex;
 
-//    public Collection<City> getAddressCollection() {
+//    private ContactInfo contactInfo;
+//
+//    public ContactInfo getContactInfo() {
+//        return contactInfo;
+//    }
+//
+//    public void setContactInfo(ContactInfo contactInfo) {
+//        this.contactInfo = contactInfo;
+//    }
+
+    //    public Collection<City> getAddressCollection() {
 //        return addressCollection;
 //    }
 //
 //    public void setAddressCollection(Collection<City> addressCollection) {
 //        this.addressCollection = addressCollection;
+//    }
+
+
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+
+//    public Sex getSex() {
+//        return sex;
+//    }
+//
+//    public void setSex(Sex sex) {
+//        this.sex = sex;
 //    }
 
     public Employee() {
@@ -100,19 +143,55 @@ public class Employee {
     public void setDeg(String deg) {
         this.deg = deg;
     }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Employee employee = (Employee) o;
+//        return Objects.equal(id, employee.id) &&
+//                Objects.equal(name, employee.name) &&
+//                Objects.equal(salary, employee.salary) &&
+//                Objects.equal(deg, employee.deg);
+//    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return com.google.common.base.Objects.equal(name, employee.name) &&
-                com.google.common.base.Objects.equal(salary, employee.salary) &&
-                com.google.common.base.Objects.equal(deg, employee.deg);
+//    @Override
+//    public int hashCode() {
+//        return Objects.hashCode(id, name, salary, deg);
+//    }
+
+    public static enum Sex {
+        MAN("男"), WOMEN;
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+
+        Sex() {
+        }
+
+        Sex(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value.toString();
+        }
+
+
     }
 
-    @Override
-    public int hashCode() {
-        return com.google.common.base.Objects.hashCode( name, salary, deg);
+//    public EmployeeId_ getId() {
+//        return id;
+//    }
+//
+//    public void setId(EmployeeId_ id) {
+//        this.id = id;
+//    }
+
+    public static void main(String[] args) {
+        System.out.println(Sex.MAN.getValue());
     }
 }
