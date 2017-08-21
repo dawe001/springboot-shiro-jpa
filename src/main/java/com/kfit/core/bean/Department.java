@@ -5,9 +5,11 @@ package com.kfit.core.bean;
  */
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
-@IdClass(DeptId.class)
+//@IdClass(DeptId.class)
 public class Department {
     //    @Id
 //    @TableGenerator(name = "dep_gen",table = "ID_GEN",pkColumnName = "GEN_NAME",valueColumnName = "GEN_VAL",allocationSize = 2,pkColumnValue = "dep_r")
@@ -15,12 +17,12 @@ public class Department {
 //    @Id
 //    @GeneratedValue(generator = "ID_GENERATOR")
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 //    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-    @Id
     private Long number;
-    @Id
+//    @Id
     private String country;
 
     private String name;
@@ -37,12 +39,12 @@ public class Department {
 //    @JoinTable(name = "em_dep",joinColumns = {@JoinColumn(name = "em_id")}, inverseJoinColumns = {@JoinColumn(name = "dep_id")})
 
 
-//    @ElementCollection
-//    @Column(name = "imgSrc")
-//    @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "dep_id"))
-//    @MapKeyColumn(name = "key1")
+    @ElementCollection
+    @Column(name = "imgSrc")
+    @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "dep_id"))
+    @MapKeyColumn(name = "key1")
 //    @CollectionId(columns = @Column(name = "id"), type = @Type(type = "long"), generator = "ID_GENERATOR")
-//    private Map<String, String> imageSet = new HashMap<>();
+    private Map<String, String> imageSet = new HashMap<>();
 
 
 //    @ElementCollection

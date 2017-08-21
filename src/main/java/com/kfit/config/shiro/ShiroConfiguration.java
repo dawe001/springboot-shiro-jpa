@@ -11,7 +11,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -26,7 +25,7 @@ import java.util.Map;
  * @author Angel(QQ:412887952)
  * @version v.0.1
  */
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
     @Value(value = "${server.context-path}")
     String context;
@@ -135,7 +134,7 @@ public class ShiroConfiguration {
         return cacheManager;
     }
 
-    @Bean
+    @Bean(name = "mycookie")
     public SimpleCookie rememberMeCookie() {
         // 这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");

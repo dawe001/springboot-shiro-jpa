@@ -12,8 +12,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-import javax.annotation.Resource;
-
 /**
  * 身份校验核心类;
  * 
@@ -29,7 +27,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 	// return token instanceof UsernamePasswordToken;
 	// }
 
-	@Resource
+//	@Resource
 	private UserInfoService userInfoService;
 
 	/**

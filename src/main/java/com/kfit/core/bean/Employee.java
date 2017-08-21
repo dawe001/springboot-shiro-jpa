@@ -4,21 +4,23 @@ package com.kfit.core.bean;
  * Created by davi on 2017/6/16.
  */
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Optional;
 
 @Entity
 //@IdClass(EmployeeId.class)
-@SecondaryTable(name = "emp_info",pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
+//@SecondaryTable(name = "emp_info",pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
 public class Employee implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //        @Id
 //    @TableGenerator(name = "emp_gen", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 100)
 //    @GeneratedValue(generator = "emp_gen", strategy = GenerationType.TABLE)
-//    @Id
-//    @GeneratedValue(generator = "ID1_GENERATOR")
+    @Id
+    @GeneratedValue(generator = "ID_GENERATOR")
 //    @GenericGenerator(name = "ID1_GENERATOR", strategy = "uuid", parameters = {})
 
 //    @Id
@@ -37,7 +39,7 @@ public class Employee implements Serializable {
     //    @Transient//暂态属性，不出现在表中
     private Double salary;
     //    @Formula("select sum(id) from employee")//派生属性，不出现在表中
-    @Column(table = "emp_info")
+//    @Column(table = "emp_info")
     private String deg;
 
 //    @JsonIgnore
@@ -143,7 +145,19 @@ public class Employee implements Serializable {
     public void setDeg(String deg) {
         this.deg = deg;
     }
-//
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Employee{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", salary=").append(salary);
+        sb.append(", deg='").append(deg).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    //
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;

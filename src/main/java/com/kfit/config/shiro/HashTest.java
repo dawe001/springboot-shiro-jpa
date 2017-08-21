@@ -5,7 +5,6 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HashTest {
-
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         test();

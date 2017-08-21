@@ -13,7 +13,7 @@ public class Staff implements Serializable {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @GeneratedValue(generator = "ID_GENERATOR")
-    private int sid;
+    private Integer sid;
     @Column(columnDefinition = "varchar(128) not null")
     private String sname;
 

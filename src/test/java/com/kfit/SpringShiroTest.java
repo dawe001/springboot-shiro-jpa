@@ -3,13 +3,14 @@ package com.kfit;
 import com.alibaba.fastjson.JSON;
 import com.kfit.core.bean.Department;
 import com.kfit.core.bean.Employee;
+import com.kfit.core.bean.Phone;
 import com.kfit.core.repository.DepartmentDao;
 import com.kfit.core.repository.EmployeeDao;
-import com.kfit.core.repository.SysRoleDao;
+import com.kfit.core.repository.PhoneDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,8 @@ import java.util.Map;
  * Created by davi on 2017/6/20.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(App.class)
+//@SpringApplicationConfiguration(App.class)
+@SpringBootTest(classes = App.class)
 @EnableTransactionManagement
 public class SpringShiroTest {
     @PersistenceContext
@@ -41,7 +42,7 @@ public class SpringShiroTest {
     @Autowired
     private DepartmentDao departmentDao;
     @Autowired
-    private SysRoleDao sysRoleDao;
+    private PhoneDao phoneDao;
 
     @Test
     public void test() throws Exception {
@@ -88,26 +89,19 @@ public class SpringShiroTest {
 
     @Test
     @Transactional
-    public void test3() {
-//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Tuple> criteriaQuery = cb.createTupleQuery();
-//        Root<SysRole> root = criteriaQuery.from(SysRole.class);
-//        criteriaQuery.multiselect(root.get("description"), cb.selectCase(root.get("role")).when("管理员", "gly"));
-//        criteriaQuery.where();
-//        Query query = entityManager.createQuery(criteriaQuery);
-
-        Page<Tuple> page = sysRoleDao.findAll(new Specification<Tuple>() {
-            @Override
-            public Predicate toPredicate(Root<Tuple> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                criteriaQuery.multiselect(root.get("description"), criteriaBuilder.selectCase(root.get("role")).when("管理员", "gly"));
-                criteriaQuery.where();
-                return null;
-            }
-        }, new PageRequest(0, 3, new Sort(Sort.Direction.DESC, "id")));
-
-        List list = page.getContent();
-        List<Map> list1 = (List<Map>) list;
-        System.out.println(JSON.toJSONString(list1));
+    public void test3() throws Exception {
+        Employee employee = new Employee();
+        employee.setName("a1");
+        employeeDao.save(employee);
+        System.out.println(employee);
     }
 
+    @Test
+    @Transactional
+    public void test4() throws Exception {
+        Phone phone = new Phone();
+        phone.setType("type1");
+        phoneDao.save(phone);
+        System.out.println(phone);
+    }
 }

@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Created by davi on 2017/7/30.
  */
-@Entity
+//@Entity
 @IdClass(ProjectId.class)
 public class Project implements Serializable {
     @Id
