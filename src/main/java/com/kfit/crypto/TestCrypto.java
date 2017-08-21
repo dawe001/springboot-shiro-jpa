@@ -6,6 +6,7 @@ import sun.misc.BASE64Encoder;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Base64;
 
@@ -32,7 +33,12 @@ public class TestCrypto {
         String string2 = null;
 
         Cipher cipher = Cipher.getInstance("DES");
-        Key key = SecretKeyFactory.getInstance("DES").generateSecret(new DESKeySpec("aaaaaaaa".getBytes()));
+        Key key = SecretKeyFactory.getInstance("DES").generateSecret(new SecretKeySpec("aaaaaaaa".getBytes(),"des"));
+//       KeyGenerator generator= KeyGenerator.getInstance("des");
+//       generator.init(new SecureRandom("asdf".getBytes()));
+//        Key key= generator.generateKey();
+        System.out.println(key);
+
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] outputBytes = cipher.doFinal(bytes);
         BASE64Encoder base64Encoder = new BASE64Encoder();
@@ -54,10 +60,14 @@ public class TestCrypto {
 
         Cipher cipher = Cipher.getInstance("DES");
         Key key = SecretKeyFactory.getInstance("DES").generateSecret(new DESKeySpec("aaaaaaaaaaaaaaaa".getBytes()));
+//        KeyGenerator generator= KeyGenerator.getInstance("DES");
+//        generator.init(new SecureRandom("asdf".getBytes()));
+//        Key key= generator.generateKey();
+        System.out.println(key);
         cipher.init(Cipher.DECRYPT_MODE, key);
         BASE64Decoder base64Decoder = new BASE64Decoder();
 
-        byte[] aa = base64Decoder.decodeBuffer("KhkrRSs24NeBJ5D+ns4JYQ==");
+        byte[] aa = base64Decoder.decodeBuffer("BSEYczQoTXpCCYcZDysRMw==");
         byte[] stringBytes = cipher.doFinal(aa);
         string1 = new String(stringBytes, "UTF8");
         string2 = new String(Base64.getDecoder().decode(stringBytes));
