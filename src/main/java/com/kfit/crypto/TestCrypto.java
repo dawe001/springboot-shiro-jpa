@@ -4,10 +4,11 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.security.SecureRandom;
 import java.util.Base64;
 
 /**
@@ -33,11 +34,10 @@ public class TestCrypto {
         String string2 = null;
 
         Cipher cipher = Cipher.getInstance("DES");
-        Key key = SecretKeyFactory.getInstance("DES").generateSecret(new SecretKeySpec("aaaaaaaa".getBytes(),"des"));
-//       KeyGenerator generator= KeyGenerator.getInstance("des");
-//       generator.init(new SecureRandom("asdf".getBytes()));
-//        Key key= generator.generateKey();
-        System.out.println(key);
+//        Key key = SecretKeyFactory.getInstance("DES").generateSecret(new SecretKeySpec("aaaaaaaa".getBytes(),"des"));
+       KeyGenerator generator= KeyGenerator.getInstance("DES");
+       generator.init(new SecureRandom("aaaaaaaa".getBytes()));
+        Key key= generator.generateKey();
 
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] outputBytes = cipher.doFinal(bytes);
