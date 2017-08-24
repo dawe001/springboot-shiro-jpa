@@ -28,6 +28,8 @@ public class SmsService {
 
     static {
         URL = "http://120.25.58.127:8080/httpapi.action";
+//        GETURL="http://120.25.58.127:8080/httpapi.action?action={ac}";
+//        map.put("ac","sendsms");
         USERNAME = "1";
         PASSWORD = "2";
     }
