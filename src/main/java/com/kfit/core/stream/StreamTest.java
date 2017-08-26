@@ -18,15 +18,15 @@ public class StreamTest {
 //        System.out.println(ForkJoinPool.getCommonPoolParallelism());
 //        System.out.println(Runtime.getRuntime().availableProcessors());
 
-//        Long a = System.currentTimeMillis();
-//        CompletableFuture.supplyAsync(()->{
-//            me7();
-//            me8();
-//            me9();
-//            return null;
-//        });
-//
-//        System.out.println(System.currentTimeMillis() - a);
+        Long a = System.currentTimeMillis();
+        CompletableFuture future = CompletableFuture.supplyAsync(() -> {
+            me7();
+            me8();
+            me9();
+            return null;
+        });
+        future.join();
+        System.out.println(System.currentTimeMillis() - a);
     }
 
     static void me1() {
@@ -102,7 +102,7 @@ public class StreamTest {
 
     static void me8() {
         try {
-            System.out.println(2111);
+            System.out.println(2);
             Thread.sleep(2000);
 
         } catch (Exception ex) {
@@ -146,7 +146,7 @@ public class StreamTest {
         map.put("id", 1);
         map.put("address", null);
 
-        Object a1 = map.computeIfPresent("aa", (a, b) -> a + b);//
+        String a1 = (String) map.computeIfPresent("aa", (a, b) -> a + b);//
         System.out.println(map.get("aa"));
 
     }
@@ -167,11 +167,54 @@ public class StreamTest {
 
         String result = map.search(100, (k, v) -> v > 1000 ? k : null);
         System.out.println(result);
-        String result1 = map.searchKeys(2, (String v) -> null);//function的最后一个参数 泛型为任意类型，所有当返回值为非final类时，无法完成类型推断，建议在返回值后接+""
+        Object result1 = map.searchValues(2, (v) -> v > 1000 ? v : null);//function的最后一个参数 泛型为searchValues的子类
         System.out.println(result1);
     }
 
+    static CompletableFuture<Integer> me15() {
+        CompletableFuture future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            }
+            return 10;
+        });
+        return future;
+    }
+
+    static void me16(Integer pa) {
+        System.out.println(pa);
+        if (pa == null)
+            throw new RuntimeException("异常");
+        System.out.println(pa);
+        return;
+    }
+
+    static CompletableFuture<Integer> me17() {
+        CompletableFuture future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            }
+            return 12;
+        });
+        return future;
+    }
+
     public static void main(String[] args) {
-        me14();
+        Long l1 = System.currentTimeMillis();
+//        CompletableFuture future = CompletableFuture.supplyAsync(() -> {
+//            int a = me15();
+//            me16(1);
+//            return null;
+//        });
+//        future.join();
+
+
+        CompletableFuture a = me15();
+        CompletableFuture a1 = me17();
+//        System.out.println(a.join().equals(a1.join()));
+//        System.out.println( a.thenCombine(me17(),(s1,s2)->s1.equals(s2)).join());
+        System.out.println(System.currentTimeMillis() - l1);
     }
 }
