@@ -22,6 +22,8 @@ public class Department {
     private Long id;
 //    @Id
     private Long number;
+
+    private Boolean isLast;
 //    @Id
     private String country;
 
