@@ -95,7 +95,7 @@ public class StreamTest {
     static void me7() {
         try {
             System.out.println(3);
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (Exception ex) {
         }
     }
@@ -175,9 +175,10 @@ public class StreamTest {
         CompletableFuture future = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(3000);
+                System.out.println(1111);
             } catch (InterruptedException e) {
             }
-            return 10;
+            return 1;
         });
         return future;
     }
@@ -201,6 +202,11 @@ public class StreamTest {
         return future;
     }
 
+    static void me18() throws Exception {
+        Thread.sleep(3000);
+        System.out.println(222);
+    }
+
     public static void main(String[] args) {
         Long l1 = System.currentTimeMillis();
 //        CompletableFuture future = CompletableFuture.supplyAsync(() -> {
@@ -212,9 +218,10 @@ public class StreamTest {
 
 
         CompletableFuture a = me15();
-        CompletableFuture a1 = me17();
+        a.join();
+
 //        System.out.println(a.join().equals(a1.join()));
-//        System.out.println( a.thenCombine(me17(),(s1,s2)->s1.equals(s2)).join());
+        System.out.println( a.thenCombineAsync(me17(),(s1,s2)->s1.equals(s2)).join());
         System.out.println(System.currentTimeMillis() - l1);
     }
 }
